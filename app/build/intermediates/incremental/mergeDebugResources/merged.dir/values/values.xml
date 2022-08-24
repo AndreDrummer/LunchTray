@@ -1735,7 +1735,7 @@
     <string name="start_order">Start Order</string>
     <string name="status_bar_notification_info_overflow">999+</string>
     <string name="submit">Submit Order</string>
-    <string name="submit_order">Order submitted</string>
+    <string name="submit_order">Order Submitted!</string>
     <string name="subtotal">Subtotal: %s</string>
     <string name="tax">Tax: %s</string>
     <string name="tile_start_order">Order</string>

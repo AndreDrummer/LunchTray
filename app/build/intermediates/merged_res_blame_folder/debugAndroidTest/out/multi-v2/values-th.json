@@ -1,0 +1,19 @@
+{
+    "logs": [
+        {
+            "outputFile": "/Users/andre.silva/Desktop/CursoAndroidNativo/lunch-tray/app/build/intermediates/incremental/mergeDebugAndroidTestResources/merged.dir/values-th/values-th.xml",
+            "map": [
+                {
+                    "source": "/Users/andre.silva/.gradle/caches/transforms-3/c9caa45c04b93cc63917cda2e95206c4/transformed/core-1.7.0/res/values-th/values-th.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "100",
+                        "endOffsets": "151"
+                    }
+                }
+            ]
+        }
+    ]
+}

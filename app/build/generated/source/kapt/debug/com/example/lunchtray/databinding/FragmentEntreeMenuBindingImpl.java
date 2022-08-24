@@ -14,23 +14,25 @@ public class FragmentEntreeMenuBindingImpl extends FragmentEntreeMenuBinding imp
     static {
         sIncludes = null;
         sViewsWithIds = new android.util.SparseIntArray();
-        sViewsWithIds.put(R.id.entree_options, 14);
-        sViewsWithIds.put(R.id.divider, 15);
-        sViewsWithIds.put(R.id.cancel_button, 16);
-        sViewsWithIds.put(R.id.next_button, 17);
+        sViewsWithIds.put(R.id.entree_options, 16);
+        sViewsWithIds.put(R.id.divider, 17);
     }
     // views
     @NonNull
     private final android.widget.ScrollView mboundView0;
     // variables
     @Nullable
-    private final android.view.View.OnClickListener mCallback2;
+    private final android.view.View.OnClickListener mCallback15;
     @Nullable
-    private final android.view.View.OnClickListener mCallback1;
+    private final android.view.View.OnClickListener mCallback19;
     @Nullable
-    private final android.view.View.OnClickListener mCallback4;
+    private final android.view.View.OnClickListener mCallback16;
     @Nullable
-    private final android.view.View.OnClickListener mCallback3;
+    private final android.view.View.OnClickListener mCallback17;
+    @Nullable
+    private final android.view.View.OnClickListener mCallback14;
+    @Nullable
+    private final android.view.View.OnClickListener mCallback18;
     // values
     // listeners
     // Inverse Binding Event Handlers
@@ -40,16 +42,16 @@ public class FragmentEntreeMenuBindingImpl extends FragmentEntreeMenuBinding imp
     }
     private FragmentEntreeMenuBindingImpl(androidx.databinding.DataBindingComponent bindingComponent, View root, Object[] bindings) {
         super(bindingComponent, root, 1
-            , (android.widget.Button) bindings[16]
+            , (android.widget.Button) bindings[14]
             , (android.widget.RadioButton) bindings[1]
             , (android.widget.TextView) bindings[2]
             , (android.widget.TextView) bindings[3]
             , (android.widget.RadioButton) bindings[4]
             , (android.widget.TextView) bindings[5]
             , (android.widget.TextView) bindings[6]
-            , (android.view.View) bindings[15]
-            , (android.widget.RadioGroup) bindings[14]
-            , (android.widget.Button) bindings[17]
+            , (android.view.View) bindings[17]
+            , (android.widget.RadioGroup) bindings[16]
+            , (android.widget.Button) bindings[15]
             , (android.widget.RadioButton) bindings[7]
             , (android.widget.TextView) bindings[8]
             , (android.widget.TextView) bindings[9]
@@ -58,6 +60,7 @@ public class FragmentEntreeMenuBindingImpl extends FragmentEntreeMenuBinding imp
             , (android.widget.TextView) bindings[12]
             , (android.widget.TextView) bindings[13]
             );
+        this.cancelButton.setTag(null);
         this.cauliflower.setTag(null);
         this.cauliflowerDescription.setTag(null);
         this.cauliflowerPrice.setTag(null);
@@ -66,6 +69,7 @@ public class FragmentEntreeMenuBindingImpl extends FragmentEntreeMenuBinding imp
         this.chiliPrice.setTag(null);
         this.mboundView0 = (android.widget.ScrollView) bindings[0];
         this.mboundView0.setTag(null);
+        this.nextButton.setTag(null);
         this.pasta.setTag(null);
         this.pastaDescription.setTag(null);
         this.pastaPrice.setTag(null);
@@ -75,10 +79,12 @@ public class FragmentEntreeMenuBindingImpl extends FragmentEntreeMenuBinding imp
         this.subtotal.setTag(null);
         setRootTag(root);
         // listeners
-        mCallback2 = new com.example.lunchtray.generated.callback.OnClickListener(this, 2);
-        mCallback1 = new com.example.lunchtray.generated.callback.OnClickListener(this, 1);
-        mCallback4 = new com.example.lunchtray.generated.callback.OnClickListener(this, 4);
-        mCallback3 = new com.example.lunchtray.generated.callback.OnClickListener(this, 3);
+        mCallback15 = new com.example.lunchtray.generated.callback.OnClickListener(this, 2);
+        mCallback19 = new com.example.lunchtray.generated.callback.OnClickListener(this, 6);
+        mCallback16 = new com.example.lunchtray.generated.callback.OnClickListener(this, 3);
+        mCallback17 = new com.example.lunchtray.generated.callback.OnClickListener(this, 4);
+        mCallback14 = new com.example.lunchtray.generated.callback.OnClickListener(this, 1);
+        mCallback18 = new com.example.lunchtray.generated.callback.OnClickListener(this, 5);
         invalidateAll();
     }
 
@@ -117,6 +123,11 @@ public class FragmentEntreeMenuBindingImpl extends FragmentEntreeMenuBinding imp
 
     public void setEntreeFragment(@Nullable com.example.lunchtray.ui.order.EntreeMenuFragment EntreeFragment) {
         this.mEntreeFragment = EntreeFragment;
+        synchronized(this) {
+            mDirtyFlags |= 0x2L;
+        }
+        notifyPropertyChanged(BR.entreeFragment);
+        super.requestRebind();
     }
     public void setViewModel(@Nullable com.example.lunchtray.model.OrderViewModel ViewModel) {
         this.mViewModel = ViewModel;
@@ -159,6 +170,7 @@ public class FragmentEntreeMenuBindingImpl extends FragmentEntreeMenuBinding imp
         com.example.lunchtray.model.MenuItem viewModelMenuItemsAndroidStringChili = null;
         java.lang.String viewModelMenuItemsAndroidStringSkilletGetFormattedPrice = null;
         java.util.Map<java.lang.String,com.example.lunchtray.model.MenuItem> viewModelMenuItems = null;
+        com.example.lunchtray.ui.order.EntreeMenuFragment entreeFragment = mEntreeFragment;
         com.example.lunchtray.model.MenuItem viewModelMenuItemsAndroidStringSkillet = null;
         java.lang.String viewModelMenuItemsAndroidStringChiliDescription = null;
         com.example.lunchtray.model.MenuItem viewModelMenuItemsAndroidStringCauliflower = null;
@@ -251,10 +263,12 @@ public class FragmentEntreeMenuBindingImpl extends FragmentEntreeMenuBinding imp
         if ((dirtyFlags & 0x8L) != 0) {
             // api target 1
 
-            this.cauliflower.setOnClickListener(mCallback1);
-            this.chili.setOnClickListener(mCallback2);
-            this.pasta.setOnClickListener(mCallback3);
-            this.skillet.setOnClickListener(mCallback4);
+            this.cancelButton.setOnClickListener(mCallback18);
+            this.cauliflower.setOnClickListener(mCallback14);
+            this.chili.setOnClickListener(mCallback15);
+            this.nextButton.setOnClickListener(mCallback19);
+            this.pasta.setOnClickListener(mCallback16);
+            this.skillet.setOnClickListener(mCallback17);
         }
         if ((dirtyFlags & 0xcL) != 0) {
             // api target 1
@@ -300,7 +314,24 @@ public class FragmentEntreeMenuBindingImpl extends FragmentEntreeMenuBinding imp
                 }
                 break;
             }
-            case 1: {
+            case 6: {
+                // localize variables for thread safety
+                // entreeFragment != null
+                boolean entreeFragmentJavaLangObjectNull = false;
+                // entreeFragment
+                com.example.lunchtray.ui.order.EntreeMenuFragment entreeFragment = mEntreeFragment;
+
+
+
+                entreeFragmentJavaLangObjectNull = (entreeFragment) != (null);
+                if (entreeFragmentJavaLangObjectNull) {
+
+
+                    entreeFragment.goToNextScreen();
+                }
+                break;
+            }
+            case 3: {
                 // localize variables for thread safety
                 // viewModel
                 com.example.lunchtray.model.OrderViewModel viewModel = mViewModel;
@@ -314,7 +345,7 @@ public class FragmentEntreeMenuBindingImpl extends FragmentEntreeMenuBinding imp
 
 
 
-                    viewModel.setEntree(cauliflower.getResources().getString(R.string.cauliflower));
+                    viewModel.setEntree(pasta.getResources().getString(R.string.pasta));
                 }
                 break;
             }
@@ -336,7 +367,7 @@ public class FragmentEntreeMenuBindingImpl extends FragmentEntreeMenuBinding imp
                 }
                 break;
             }
-            case 3: {
+            case 1: {
                 // localize variables for thread safety
                 // viewModel
                 com.example.lunchtray.model.OrderViewModel viewModel = mViewModel;
@@ -350,7 +381,24 @@ public class FragmentEntreeMenuBindingImpl extends FragmentEntreeMenuBinding imp
 
 
 
-                    viewModel.setEntree(pasta.getResources().getString(R.string.pasta));
+                    viewModel.setEntree(cauliflower.getResources().getString(R.string.cauliflower));
+                }
+                break;
+            }
+            case 5: {
+                // localize variables for thread safety
+                // entreeFragment != null
+                boolean entreeFragmentJavaLangObjectNull = false;
+                // entreeFragment
+                com.example.lunchtray.ui.order.EntreeMenuFragment entreeFragment = mEntreeFragment;
+
+
+
+                entreeFragmentJavaLangObjectNull = (entreeFragment) != (null);
+                if (entreeFragmentJavaLangObjectNull) {
+
+
+                    entreeFragment.cancelOrder();
                 }
                 break;
             }
