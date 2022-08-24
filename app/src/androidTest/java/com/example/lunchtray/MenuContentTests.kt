@@ -33,6 +33,22 @@ import org.junit.runner.RunWith
 @MediumTest
 class MenuContentTests : BaseTest() {
 
+    private fun checkItemConsistencyWithValues(
+        matcherFormattedPrice: String,
+        matcherDescription: String,
+        itemFormattedPriceId: Int,
+        itemDescriptionId: Int,
+        matcherName: String,
+        itemNameId: Int,
+    ) {
+        onView(withId(itemNameId))
+            .check(matches(withText(containsString(matcherName))))
+        onView(withId(itemDescriptionId))
+            .check(matches(withText(containsString(matcherDescription))))
+        onView(withId(itemFormattedPriceId))
+            .check(matches(withText(containsString(matcherFormattedPrice))))
+    }
+
     /**
      * Test the menu content of the entire [EntreeMenuFragment]
      *
@@ -45,36 +61,44 @@ class MenuContentTests : BaseTest() {
         launchFragmentInContainer<EntreeMenuFragment>(themeResId = R.style.Theme_LunchTray)
 
         // Check the cauliflower item
-        onView(withId(R.id.cauliflower))
-            .check(matches(withText(containsString("Cauliflower"))))
-        onView(withId(R.id.cauliflower_description))
-            .check(matches(withText(containsString("Whole cauliflower"))))
-        onView(withId(R.id.cauliflower_price))
-            .check(matches(withText(containsString("$7.00"))))
+        checkItemConsistencyWithValues(
+            itemDescriptionId = R.id.cauliflower_description,
+            itemFormattedPriceId = R.id.cauliflower_price,
+            matcherDescription = "Whole cauliflower",
+            matcherFormattedPrice = "$7.00",
+            itemNameId = R.id.cauliflower,
+            matcherName = "Cauliflower",
+        )
 
         // Check the chili item
-        onView(withId(R.id.chili))
-            .check(matches(withText(containsString("Three Bean Chili"))))
-        onView(withId(R.id.chili_description))
-            .check(matches(withText(containsString("Black beans"))))
-        onView(withId(R.id.chili_price))
-            .check(matches(withText(containsString("$4.00"))))
+        checkItemConsistencyWithValues(
+            itemDescriptionId = R.id.chili_description,
+            itemFormattedPriceId = R.id.chili_price,
+            matcherDescription = "Black beans",
+            matcherName = "Three Bean Chili",
+            matcherFormattedPrice = "$4.00",
+            itemNameId = R.id.chili,
+        )
 
         // Check the pasta item
-        onView(withId(R.id.pasta))
-            .check(matches(withText(containsString("Mushroom Pasta"))))
-        onView(withId(R.id.pasta_description))
-            .check(matches(withText(containsString("Penne pasta"))))
-        onView(withId(R.id.pasta_price))
-            .check(matches(withText(containsString("$5.50"))))
+        checkItemConsistencyWithValues(
+            itemDescriptionId = R.id.pasta_description,
+            itemFormattedPriceId = R.id.pasta_price,
+            matcherDescription = "Penne pasta",
+            matcherFormattedPrice = "$5.50",
+            matcherName = "Mushroom Pasta",
+            itemNameId = R.id.pasta,
+        )
 
         // Check the skillet item
-        onView(withId(R.id.skillet))
-            .check(matches(withText(containsString("Spicy Black Bean"))))
-        onView(withId(R.id.skillet_description))
-            .check(matches(withText(containsString("Seasonal vegetables"))))
-        onView(withId(R.id.skillet_price))
-            .check(matches(withText(containsString("$5.50"))))
+        checkItemConsistencyWithValues(
+            itemDescriptionId = R.id.skillet_description,
+            matcherDescription = "Seasonal vegetables",
+            itemFormattedPriceId = R.id.skillet_price,
+            matcherName = "Spicy Black Bean",
+            matcherFormattedPrice = "$5.50",
+            itemNameId = R.id.skillet,
+        )
     }
 
     /**
