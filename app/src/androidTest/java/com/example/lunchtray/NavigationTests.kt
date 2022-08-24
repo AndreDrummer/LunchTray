@@ -23,6 +23,7 @@ import androidx.navigation.Navigation
 import androidx.navigation.testing.TestNavHostController
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.ViewInteraction
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -44,21 +45,11 @@ class NavigationTests : BaseTest() {
      */
     @Test
     fun `navigate_to_entree_menu_from_start_order`() {
-        // Init nav controller
-        val navController = TestNavHostController(
-            ApplicationProvider.getApplicationContext())
-        // Launch StartOrderFragment
-        val startOrderScenario =
-            launchFragmentInContainer<StartOrderFragment>(themeResId = R.style.Theme_LunchTray)
-        // Configure nav controller
-        startOrderScenario.onFragment{ fragment ->
-            navController.setGraph(R.navigation.mobile_navigation)
-            Navigation.setViewNavController(fragment.requireView(), navController)
-        }
-        // Click start order
-        onView(withId(R.id.start_order_btn)).perform(click())
-        // Check destination is correct
-        assertEquals(navController.currentDestination?.id, R.id.entreeMenuFragment)
+        navigateFrom<StartOrderFragment>(
+            withViewInteraction = onView(withId(R.id.start_order_btn)),
+            currentDestiny = R.id.startOrderFragment,
+            nextDestiny = R.id.entreeMenuFragment,
+        )
     }
 
     /**
@@ -66,24 +57,11 @@ class NavigationTests : BaseTest() {
      */
     @Test
     fun `navigate_to_start_order_from_entree_menu`() {
-        // Init nav controller
-        val navController = TestNavHostController(
-            ApplicationProvider.getApplicationContext())
-        // Launch EntreeMenuFragment
-        val entreeMenuScenario =
-            launchFragmentInContainer<EntreeMenuFragment>(themeResId = R.style.Theme_LunchTray)
-        // Configure nav controller
-        entreeMenuScenario.onFragment{ fragment ->
-            navController.setGraph(R.navigation.mobile_navigation)
-            // Destination defaults to the home fragment, we have to explicitly set the current
-            // destination
-            navController.setCurrentDestination(destId = R.id.entreeMenuFragment)
-            Navigation.setViewNavController(fragment.requireView(), navController)
-        }
-        // Click the cancel button
-        onView(withId(R.id.cancel_button)).perform(click())
-        // Check that the destination is correct
-        assertEquals(navController.currentDestination?.id, R.id.startOrderFragment)
+        navigateFrom<EntreeMenuFragment>(
+            withViewInteraction = onView(withId(R.id.cancel_button)),
+            currentDestiny = R.id.entreeMenuFragment,
+            nextDestiny = R.id.startOrderFragment,
+        )
     }
 
     /**
@@ -91,24 +69,11 @@ class NavigationTests : BaseTest() {
      */
     @Test
     fun `navigate_to_side_menu_from_entree_menu`() {
-        // Init nav controller
-        val navController = TestNavHostController(
-            ApplicationProvider.getApplicationContext())
-        // Launch the EntreeMenuFragment
-        val entreeMenuScenario =
-            launchFragmentInContainer<EntreeMenuFragment>(themeResId = R.style.Theme_LunchTray)
-        // Configure nav controller
-        entreeMenuScenario.onFragment{ fragment ->
-            navController.setGraph(R.navigation.mobile_navigation)
-            // Destination defaults to the home fragment, we have to explicitly set the current
-            // destination
-            navController.setCurrentDestination(destId = R.id.entreeMenuFragment)
-            Navigation.setViewNavController(fragment.requireView(), navController)
-        }
-        // Click the next button
-        onView(withId(R.id.next_button)).perform(click())
-        // Check that the destination is correct
-        assertEquals(navController.currentDestination?.id, R.id.sideMenuFragment)
+        navigateFrom<EntreeMenuFragment>(
+            withViewInteraction = onView(withId(R.id.next_button)),
+            currentDestiny = R.id.entreeMenuFragment,
+            nextDestiny = R.id.sideMenuFragment,
+        )
     }
 
     /**
@@ -116,17 +81,11 @@ class NavigationTests : BaseTest() {
      */
     @Test
     fun `navigate_to_start_order_from_side_menu`() {
-        val navController = TestNavHostController(
-            ApplicationProvider.getApplicationContext())
-        val sideMenuScenario =
-            launchFragmentInContainer<SideMenuFragment>(themeResId = R.style.Theme_LunchTray)
-        sideMenuScenario.onFragment{ fragment ->
-            navController.setGraph(R.navigation.mobile_navigation)
-            navController.setCurrentDestination(destId = R.id.sideMenuFragment)
-            Navigation.setViewNavController(fragment.requireView(), navController)
-        }
-        onView(withId(R.id.cancel_button)).perform(click())
-        assertEquals(navController.currentDestination?.id, R.id.startOrderFragment)
+        navigateFrom<SideMenuFragment>(
+            withViewInteraction = onView(withId(R.id.cancel_button)),
+            currentDestiny = R.id.sideMenuFragment,
+            nextDestiny = R.id.startOrderFragment,
+        )
     }
 
     /**
@@ -134,17 +93,11 @@ class NavigationTests : BaseTest() {
      */
     @Test
     fun `navigate_to_accompaniment_menu_from_side_menu`() {
-        val navController = TestNavHostController(
-            ApplicationProvider.getApplicationContext())
-        val sideMenuScenario =
-            launchFragmentInContainer<SideMenuFragment>(themeResId = R.style.Theme_LunchTray)
-        sideMenuScenario.onFragment{ fragment ->
-            navController.setGraph(R.navigation.mobile_navigation)
-            navController.setCurrentDestination(destId = R.id.sideMenuFragment)
-            Navigation.setViewNavController(fragment.requireView(), navController)
-        }
-        onView(withId(R.id.next_button)).perform(click())
-        assertEquals(navController.currentDestination?.id, R.id.accompanimentMenuFragment)
+        navigateFrom<SideMenuFragment>(
+            withViewInteraction = onView(withId(R.id.next_button)),
+            nextDestiny = R.id.accompanimentMenuFragment,
+            currentDestiny = R.id.sideMenuFragment,
+        )
     }
 
     /**
@@ -152,18 +105,11 @@ class NavigationTests : BaseTest() {
      */
     @Test
     fun `navigate_to_start_order_from_accompaniment_menu`() {
-        val navController = TestNavHostController(
-            ApplicationProvider.getApplicationContext())
-        val accompanimentMenuScenario =
-            launchFragmentInContainer<AccompanimentMenuFragment>(
-                themeResId = R.style.Theme_LunchTray)
-        accompanimentMenuScenario.onFragment{ fragment ->
-            navController.setGraph(R.navigation.mobile_navigation)
-            navController.setCurrentDestination(destId = R.id.accompanimentMenuFragment)
-            Navigation.setViewNavController(fragment.requireView(), navController)
-        }
-        onView(withId(R.id.cancel_button)).perform(click())
-        assertEquals(navController.currentDestination?.id, R.id.startOrderFragment)
+        navigateFrom<AccompanimentMenuFragment>(
+            withViewInteraction = onView(withId(R.id.cancel_button)),
+            currentDestiny = R.id.accompanimentMenuFragment,
+            nextDestiny = R.id.startOrderFragment,
+        )
     }
 
     /**
@@ -171,18 +117,11 @@ class NavigationTests : BaseTest() {
      */
     @Test
     fun `navigate_to_checkout_from_accompaniment_menu`() {
-        val navController = TestNavHostController(
-            ApplicationProvider.getApplicationContext())
-        val accompanimentMenuScenario =
-            launchFragmentInContainer<AccompanimentMenuFragment>(
-                themeResId = R.style.Theme_LunchTray)
-        accompanimentMenuScenario.onFragment{ fragment ->
-            navController.setGraph(R.navigation.mobile_navigation)
-            navController.setCurrentDestination(destId = R.id.accompanimentMenuFragment)
-            Navigation.setViewNavController(fragment.requireView(), navController)
-        }
-        onView(withId(R.id.next_button)).perform(click())
-        assertEquals(navController.currentDestination?.id, R.id.checkoutFragment)
+        navigateFrom<AccompanimentMenuFragment>(
+            withViewInteraction = onView(withId(R.id.next_button)),
+            currentDestiny = R.id.accompanimentMenuFragment,
+            nextDestiny = R.id.checkoutFragment,
+        )
     }
 
     /**
@@ -190,17 +129,11 @@ class NavigationTests : BaseTest() {
      */
     @Test
     fun `navigate_to_start_order_from_checkout`() {
-        val navController = TestNavHostController(
-            ApplicationProvider.getApplicationContext())
-        val checkoutScenario =
-            launchFragmentInContainer<CheckoutFragment>(themeResId = R.style.Theme_LunchTray)
-        checkoutScenario.onFragment{ fragment ->
-            navController.setGraph(R.navigation.mobile_navigation)
-            navController.setCurrentDestination(destId = R.id.checkoutFragment)
-            Navigation.setViewNavController(fragment.requireView(), navController)
-        }
-        onView(withId(R.id.cancel_button)).perform(click())
-        assertEquals(navController.currentDestination?.id, R.id.startOrderFragment)
+        navigateFrom<CheckoutFragment>(
+            withViewInteraction = onView(withId(R.id.cancel_button)),
+            currentDestiny = R.id.checkoutFragment,
+            nextDestiny = R.id.startOrderFragment,
+        )
     }
 
     /**
@@ -208,16 +141,27 @@ class NavigationTests : BaseTest() {
      */
     @Test
     fun `navigate_to_start_order_from_checkout_via_submit`() {
+        navigateFrom<CheckoutFragment>(
+            withViewInteraction = onView(withId(R.id.submit_button)),
+            currentDestiny = R.id.checkoutFragment,
+            nextDestiny = R.id.startOrderFragment,
+        )
+    }
+
+    inline fun <reified T : Fragment> navigateFrom(
+        withViewInteraction: ViewInteraction,
+        currentDestiny: Int,
+        nextDestiny: Int,
+    ) {
         val navController = TestNavHostController(
             ApplicationProvider.getApplicationContext())
-        val checkoutScenario =
-            launchFragmentInContainer<CheckoutFragment>(themeResId = R.style.Theme_LunchTray)
-        checkoutScenario.onFragment{ fragment ->
+        val checkoutScenario = launchFragmentInContainer<T>(themeResId = R.style.Theme_LunchTray)
+        checkoutScenario.onFragment { fragment ->
             navController.setGraph(R.navigation.mobile_navigation)
-            navController.setCurrentDestination(destId = R.id.checkoutFragment)
+            navController.setCurrentDestination(destId = currentDestiny)
             Navigation.setViewNavController(fragment.requireView(), navController)
         }
-        onView(withId(R.id.submit_button)).perform(click())
-        assertEquals(navController.currentDestination?.id, R.id.startOrderFragment)
+        withViewInteraction.perform(click())
+        assertEquals(navController.currentDestination?.id, nextDestiny)
     }
 }
